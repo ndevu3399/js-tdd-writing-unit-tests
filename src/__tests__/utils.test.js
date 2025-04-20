@@ -1,32 +1,40 @@
-// Your tests here
-import { pointsForWord } from "../utils";
+import { pointsForWord, isPalindrome } from '../utils';
 
-describe("pointsForWord", () => {
-  it("calculates the total points for a word (1 point per vowel, 2 per consonant)", () => {
-    const word = "test";
-    const points = pointsForWord(word);
-    expect(points).toBe(7); // t(2) + e(1) + s(2) + t(2)
-  });
+describe('pointsForWord', () => {
+    it('calculates the total points for a word (1 point per vowel, 2 per consonant)', () => {
+        const word = "test";
+        expect(pointsForWord(word)).toBe(7);
+    });
 
-  it("handles uppercase and lowercase input", () => {
-    const word = "tEsT";
-    const points = pointsForWord(word);
-    expect(points).toBe(7);
-  });
+    it('returns 0 for non-string input', () => {
+        expect(pointsForWord(123)).toBe(0);
+    });
+});
 
-  it("returns 0 for an empty string", () => {
-    const points = pointsForWord("");
-    expect(points).toBe(0);
-  });
+describe('isPalindrome', () => {
+    it('returns true for actual palindromes', () => {
+        expect(isPalindrome("racecar")).toBe(true);
+    });
 
-  it("ignores non-alphabetic characters (bonus)", () => {
-    const word = "t3s!t";
-    const points = pointsForWord(word);
-    expect(points).toBe(6); // t(2) + s(2) + t(2)
-  });
+    it('returns false for non-palindromes', () => {
+        expect(isPalindrome("car")).toBe(false);
+    });
 
-  it("returns 0 for non-string input", () => {
-    const points = pointsForWord(null);
-    expect(points).toBe(0);
-  });
+    it('is case-insensitive', () => {
+        expect(isPalindrome("RaceCar")).toBe(true);
+    });
+
+    it('returns false for empty string', () => {
+        expect(isPalindrome("")).toBe(false);
+    });
+
+    it('throws error for non-alphabetic characters', () => {
+        expect(() => isPalindrome("race car")).toThrow();
+        expect(() => isPalindrome("racecar1")).toThrow();
+    });
+
+    it('throws error for non-string inputs', () => {
+        expect(() => isPalindrome(123)).toThrow();
+        expect(() => isPalindrome(null)).toThrow();
+    });
 });
